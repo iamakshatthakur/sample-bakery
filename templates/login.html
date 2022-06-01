@@ -1,0 +1,21 @@
+{% extends "base.html"%}
+{% load static %}
+{% block content %}
+<form action="/login/" class="login" method="POST">
+    {% csrf_token %}
+    <div class="container-fluid text-center">
+        <div class="h01">registered users</div>
+        <p>Enter your Username and password to sign in</p>
+        <strong>Username <span>*</span></strong><br>
+        <input required type="text" name="username" placeholder="Username" size="" class="userinput" >
+        <strong>Password <span>*</span></strong><br>
+        <input required type="text" name="userpassword" placeholder="Password" size="" class="userinput" >
+        <p>Password is case sensitive</p>
+        <button type="submit">login</button>
+        <!-- <p>Forgot your password? <strong><a href="#">click here</a></strong></p> -->
+        <p>Not Registered <strong><a href="{% url 'registerpage'%}">Register now</a></strong></p>
+    </div>
+</form>
+
+
+{%endblock%}

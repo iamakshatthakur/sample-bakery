@@ -1,0 +1,65 @@
+{% extends "base.html"%}
+{% load static %}
+{% block content %}
+{% load cart %}
+<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+    document.addEventListener("DOMContentLoaded", function(event) { 
+            var scrollpos = localStorage.getItem('scrollpos');
+            if (scrollpos) window.scrollTo(0, scrollpos);
+        });
+
+        window.onbeforeunload = function(e) {
+            localStorage.setItem('scrollpos', window.scrollY);
+        };
+</script>
+
+<div class="container">
+    <div class="row details_page">
+        <div class="col-lg-6">
+            <img class="img-fluid" src="{{product_object.image.url}}" alt="product image">
+        </div>
+        <div class="col-lg-6">
+            <div class="detail_title">{{product_object.product_name}}</div>
+            <div class="detail_price"> price: {{product_object.price}}</div>
+            <div class="row detail_button">
+                <div class="col-lg-6 detail_qty">
+                    <div class="row ">
+                        <div class="col-7">
+                            quantity :
+                        </div>
+                        <div class="col-2">
+                    <form action="/detail/{{product_object.id}}/" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="productid"  value="{{product_object.id}}">
+                        <button type="submit">+</button>
+                        </form> 
+                        </div>
+                        <div class="col-3">
+                    <form action="/detail/{{product_object.id}}/" method="post">
+                        {% csrf_token %}
+                        <!-- <input type="hidden" name="productid"  value="{{product_object.id}}"> -->
+                        <input  type="hidden" name="remove"  value="{{product_object.id}}">
+                        <button type="submit">-</button>
+                        </form><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                {% if product_object|is_in_cart:request.session.cart %}
+                <div class="itemno">{{product_object|cart_qty:request.session.cart }}</div>
+                {% else %}
+                    <form action="/detail/{{product_object.id}}/" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="productid"  value="{{product_object.id}}">
+                    <button type="submit">add to cart</button>
+                    </form>
+                    {% endif %}
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {%endblock%}

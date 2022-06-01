@@ -1,0 +1,42 @@
+{% extends "base.html"%}
+{% load static %}
+{% block content %}
+
+    <!-- header ends here -->
+        <figure  style="background-color: black;">
+            <img   class="img-fluid opacity-50" src="{%static 'images/2318880_1600x0.jpg'%}" alt="banner">
+        <div class="abs text-center">
+            <h1 class="main-title text-white">breads</h1>
+            <h2 class="main-subtitle text-white ">bread bakery in edmonton ab</h2>
+        </div>
+        </figure>
+    <div class="mx-auto text-center ">
+        <h3 class="footer3">Sourdough Bread | German Bread | Pretzels</h3>
+    </div>
+
+    <!-- figure ends here -->
+    
+
+
+    <div class="container text-center mx-auto">
+        <div class="row text-center">
+            {% for x in bread_objects %}
+            
+            <div class="col-lg-4">
+                <figure>
+                    <a href="#"><img class="img-fluid products" src="{{x.image.url}}" alt="product image"></a>
+                </figure>
+                <div class=" text-center product-description footer3">
+                    <h4 id="name{{x.id}}">{{x.product_name}}</h4>
+                    
+                    <a href="/detail/{{x.id}}/"><button id="{{x.id}}">shop now</button></a>
+                </div>    
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+    <!-- footer starts here -->
+    {%endblock%}

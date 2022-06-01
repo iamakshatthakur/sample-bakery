@@ -1,0 +1,29 @@
+{% extends "base.html"%}
+{% load static %}
+{% block content %}
+<form id="finalpayment" action="/paytotal/" class="register" method="POST">
+    {% csrf_token %}
+    <div class="info">
+    <div class="info-x">
+    <div class="info-1">
+            <label for="name">Name<span class="required">*</span></label><br>     
+            <input required type="text" name="name" id="name" value="" class="registerinput" minlength="3" maxlength="255">
+            <span class="error" id="name_error_msg"></span>
+            <label for="Email">Email<span class="required">*</span></label><br>     
+            <input required type="email" name="Email" id="Email" value="" class="registerinput" maxlength="255">
+            <span class="error" id="Email_error_msg"></span>
+            <label for="address">Address<span class="required">*</span></label><br>     
+            <input required type="text" name="address" id="address" value="" class="registerinput" minlength="10" maxlength="255">
+            <span class="error" id="address_error_msg"></span>
+            <label for="mobile">Mobile no.<span class="required">*</span></label><br>     
+            <input required type="tel" name="mobile" id="mobile" value="" class="registerinput" pattern="[0-9]{10}" minlength="10" maxlength="10">
+            <span class="error" id="mobile_error_msg"></span> <br> <br>
+            <input name="finalprice" type="hidden" value="{{finalprice}}">
+            <!-- <button type="submit" >place order</button> -->
+            <button  type="submit" >pay &nbsp; ₹{{finalprice}}</button>
+    </div><br>
+</div>
+</div>
+</form>
+
+{%endblock%}

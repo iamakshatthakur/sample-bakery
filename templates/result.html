@@ -1,0 +1,23 @@
+{% extends "base.html"%}
+
+{% block content %}
+
+<div class="returnmain">
+    {% if success %}
+    <div class="returnsuccess">
+        <i class="fa-solid fa-check"></i>
+    </div>
+    <div class="returndesc">User created Successfully</div>
+    {% elif failed%}
+    <div class="returnfailed">
+        <i class="fa-solid fa-check"></i>
+    </div>
+    <div class="returndesc">User created Successfully</div>
+    {% endif %}
+        <a href="/">Return to Home</a>
+    </div>
+
+
+
+<!-- footer starts here -->
+{%endblock%}

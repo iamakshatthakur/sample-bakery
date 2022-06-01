@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bakery</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="{%static 'css/all.min.css'%}">
+    <link rel="stylesheet" href="{%static 'css/style.css'%}">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&amp;family=Playfair+Display:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="{%static 'js/all.min.js'%}"></script>
+
+</head>
+<body onscroll="myfunction()">
+    <div id="top1" class="top1">
+        <div class="container-fluid">
+            <div class="row">
+                {% if user.is_authenticated %}
+                <div class="col-2 col-sm-1 l11"> <a href="{% url 'logout'%}">logout</a></div>
+                <div class="col-9 col-sm-10 text-end">
+                    <div class="cart">
+                        <form action="{% url 'searchpage'%}" method="post">
+                            {% csrf_token %}
+                            <input id="searchitms" type="text" name="searchitms"value="" minlength="2" maxlength="15">
+                            <button type="submit">
+                                    <i class="fas fa-search"></i>
+                            </button>
+                            &nbsp;&nbsp;&nbsp;
+                        </form>
+                        <a href="{% url 'cartpage'%}"><i class="fas fa-shopping-cart"></i></a>
+                    </div></div>
+                {%else%}
+                <div class="col-2 col-sm-1 l11"> <a href="{% url 'loginpage'%}">login</a></div>
+                <div class="col-2 col-sm-1 l12"><a href="{% url 'registerpage'%}">register</a></div>
+                <div class="col-7 col-sm-9 text-end">
+                    <div class="cart">
+                    <form action="{% url 'searchpage'%}" method="post">
+                        {% csrf_token %}
+                        <input id="searchitms" type="text" name="searchitms"value="" minlength="2" maxlength="15">
+                        <button type="submit">
+                                <i class="fas fa-search"></i>
+                        </button>
+                        &nbsp;&nbsp;&nbsp;
+                    </form>
+                    <a href="{% url 'cartpage'%}"><i class="fas fa-shopping-cart"></i></a>
+                </div></div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- top1 ends  -->
+    
+    <div class="top-section">
+        <div class="top2">
+            <div class="container-fluid mx-auto">
+                <div class="row">
+                    <div class="col-lg-4">
+                    </div>
+                    <div class="col-lg-4 text-center">
+                    <a href="#" ><img src="{% static 'images/logo.jpg'%}" class="img-fluid" alt="logo"></a>
+                    </div>
+                    <div class="col-lg-4 text-center contact">
+                        <a class="text-center phone " href="#">(750)-456-854</a>
+                        <a href="{% url 'contactuspage'%}"><button>Contact now</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="top3" class="top3 bg-white">
+            <div class="container-fluid mx-auto ">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <div class="container-fluid">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse bg-white toggle-menu" id="navbarScroll">
+                        <ul class="mx-auto">
+                        <li><a href="{% url 'index'%}">home</a></li>
+                        <li><a href="{% url 'aboutpage'%}">about us</a></li>
+                        <li><a href="{% url 'breadpage'%}">bread</a></li>
+                        <li><a href="{% url 'cakepage'%}">cake</a></li>
+                        <li><a href="{% url 'pastriespage'%}">pastries</a></li>
+                        <li><a href="{% url 'cookiespage'%}">cookies</a></li>
+                        <li><a href="{% url 'contactuspage'%}">contact us</a></li>
+                        </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+        {% for message in messages %}
+            <div class="djangoalerts">
+                <div class="alert alert-{{ message.tags }} alert-dismissible mb-0 fade show" role="alert">
+                    <strong>Message: </strong> {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        {% endfor %}
+    
+ <!-- header ends here -->
+    
+    {% block content %}
+
+
+        <!-- Content Goes here -->
+
+
+    {% endblock content %}
+
+
+    <!-- footer starts here -->
+<div class=" container-fluid footer">
+    <div class="row  ">
+        <div class="col-md-6 text-center footer1"><button> <a href="{% url 'registerpage'%}">join our community</a></button></div>
+        <div class="col-md-6 footer1"><div class="review-about"></div>
+    </div>
+</div>
+<div class="footer2 text-center">
+        54827 - 37 Avenue , THECITYOFIT, AB YTF - 3G5
+</div>
+    <div class=" footer3 text-center">Copyright © 2021 -  Bakery. Powered By xyz.io</div>
+</div>
+</body>
+<script src="{%static 'js/custom.js'%}"></script>
+</html>

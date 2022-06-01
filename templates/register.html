@@ -1,0 +1,43 @@
+{% extends "base.html"%}
+{% load static %}
+{% block content %}
+<form  action="/register/" class="register" method="POST">
+    {% csrf_token %}
+    <div class="info">
+    <div class="info-x">
+    <div class="info-1">
+            <label for="First_name">First Name<span class="required">*</span></label><br>     
+            <input required type="text" name="First_name"  value="" class="registerinput" minlength="3" maxlength="25" oninvalid="this.setCustomValidity('enter valid name')" oninput="setCustomValidity('')">
+            <span class="error" id="First_name_error_msg"></span>
+            <label for="last_name">Last Name<span class="required">*</span></label><br>     
+            <input type="text" name="Last_name" id="Last_name" value="" class="registerinput"minlength="3" maxlength="25">
+            <span class="error" id="last_name_error_msg"></span>
+            <label  for="username">Username<span class="required">*</span></label><br>     
+            <input required type="text" name="username" id="username" value="" class="registerinput" maxlength="255" >
+            <span class="error" id="username_error_msg"></span>
+            <label for="Email">Email<span class="required">*</span></label><br>     
+            <input required type="email" name="Email" id="Email" value="" class="registerinput" maxlength="255">
+            <span class="error" id="Email_error_msg"></span>
+            <label for="Password">Password<span class="required">*</span></label><br>     
+            <input required type="password" name="Password" id="Password" value="" class="registerinput" maxlength="255" >
+            <span class="error" id="Password_error_msg"></span>
+            <label for="Confirm_password">Confirm Password<span class="required">*</span></label><br>     
+            <input required type="text" name="Confirm_password" id="Confirm_password" value="" class="registerinput" maxlength="255">
+            <span class="error" id="Confirm_password_error_msg"></span>
+            <label for="mobile">Mobile no.<span class="required">*</span></label><br>     
+            <input required type="text" name="mobile" id="mobile" value="" class="registerinput" maxlength="25">
+            <span class="error" id="mobile_error_msg"></span>
+    </div><br>
+    <div class="info-2">
+        <div class="confirm">
+        <label for="confirmation">
+            Already registered &nbsp;, &nbsp; <a href="{%url 'loginpage'%}" style="color: #86000A;">LOGIN HERE</a>
+        </label>
+        </div>
+        <button type="submit">submit</button>
+    </div>
+    </div>
+    </div>
+</form>
+
+{%endblock%}

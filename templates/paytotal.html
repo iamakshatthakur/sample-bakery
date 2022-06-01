@@ -1,0 +1,132 @@
+{% extends "base.html"%}
+{% load static %}
+{% block content %}
+{% load cart %}
+<div class="container-fluid ">
+    <div class="cartpage mx-auto">
+        <p>Shipping Address :-</p>
+        <p>{{userdetail.address}}</p>
+
+        {% if cartitems %}
+          
+        <div class="cartitems">
+            <div class="items1 container-fluid">
+                <table class="cart-table row">
+                    <thead>
+                        <tr class="row">
+                            <th class="col-md-5">Item</th>
+                            <th class="col-md-3">Qty.</th>
+                            <th class="col-md-2">Price</th>
+                            <th class="col-md-2">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in cartitems %}
+                        
+                        <tr class="row">
+                            <td class="col-md-5">
+                                <div class="row">
+                                    <div class="col-3 "><img class="cartimg" src="{{product.image.url}}" alt="img"></div>
+                                    <div class="col-9 text-start">
+                                        <a href="/detail/{{product.id}}/" class="name">{{product.product_name}}</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="col-md-3 quantity">
+                                <div class="qtycart">{{product|cart_qty:request.session.cart}}</div>
+                                
+                            </td>
+                            <td class="col-md-2 price ">₹ {{product.price}}</td>
+                            <td class="col-md-2 total-price">₹ {{product|product_total:request.session.cart}}</td>
+                        </tr>
+                        {% endfor %}
+                        
+                        <tr class="row">
+                            <td class="col-12 text-end">₹ {{cartitems|total_price:request.session.cart}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="items2 container-fluid">
+                <div class="row">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-4 px-0 ">
+                        <div class="container-fluid text-center subtotal">
+                            <div class="text-end">
+                                <button id="rzp-button1">click to pay ₹{{final.price}}</button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form class="successform" id="successform" method="post" action="/result/">
+            {% csrf_token %}
+            <input type="hidden" id="payment_id" name="payment_id" value="payment_id">
+            <input type="hidden" id="order_id" name="order_id" value="order_id">
+            <input type="hidden" id="signature" name="signature" value="signatre">
+            <input type="hidden" id="error" name="error" value="error">
+            <input type="hidden" name="userdetail" value="{{userdetail}}">
+        </form>
+        {% else %}
+        <div class="text-center">your cart is empty <br><br> <br> <br>  <br> <br> <br> <br>  </div>
+        {% endif %}
+
+    </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "{{final.api_key}}", 
+    "amount": "{{final.price}}" * 100 ,
+    "currency": "INR",
+    "name": "Sample Bakery",
+    "description": "Order payment",
+    "image": "https://example.com/your_logo",
+    "order_id":"{{final.order_id}}", 
+    "handler": function (response){
+        console.log(response.razorpay_payment_id,response.razorpay_order_id,response.razorpay_signature)
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature);
+        document.getElementById("payment_id").value =response.razorpay_payment_id;
+        document.getElementById("order_id").value =response.razorpay_order_id;
+        document.getElementById("signature").value =response.razorpay_signature
+        document.getElementById("successform").submit();
+
+    },
+    "prefill": {
+        "name": "{{userdetail.name}}",
+        "email": "{{userdetail.email}}",
+        "contact": "{{userdetail.mobile}}"
+    },
+    "notes": {
+        "address": "{{userdetail.address}}"
+    },
+    "theme": {
+        "color": "#DC3545"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+        document.getElementById("error").value =response.error.reason;
+        document.getElementById("successform").submit()
+});
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+
+</script>
+
+
+{%endblock%}

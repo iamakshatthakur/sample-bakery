@@ -1,0 +1,50 @@
+{% extends "base.html"%}
+{% load static %}
+{% block content %}
+
+    <!-- header ends here -->
+
+
+    <figure class="rel">
+        <img class="img-fluid" src="{%static 'images/2429501_1600x0.jpg'%}"alt="bannner">
+        <div class="abs2 text-center">
+            <h1 class="main-title ">cakes</h1>
+            <h2 class="main-subtitle  ">cake bake shop in edmonton ab</h2>
+        </div>
+    </figure>
+    <div class="mx-auto text-center ">
+        <h3 class="footer3">Cherry Streusel Cake | Apple Streusel Cake | Marble Cake</h3>
+    </div>
+
+    <!-- figure ends here -->
+
+
+    <div class="container text-center mx-auto">
+        <div class="row text-center">
+    
+            {% for x in cakes %}
+            <div class="col-lg-4">
+                <figure>
+                    <a href="#"><img class="img-fluid products" src="{{x.image.url}}" alt="product image"></a>
+                </figure>
+                <div class=" text-center product-description footer3">
+                    <h4 id="name{{x.id}}">{{x.product_name}}</h4>
+                    
+                    <a href="/detail/{{x.id}}/"><button id="{{x.id}}">shop now</button></a>
+                </div>    
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <!-- footer starts here -->
+    {%endblock%}

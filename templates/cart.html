@@ -1,0 +1,124 @@
+{% extends "base.html"%}
+{% load static %}
+{% block content %}
+{% load cart %}
+<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+    document.addEventListener("DOMContentLoaded", function(event) { 
+            var scrollpos = localStorage.getItem('scrollpos');
+            if (scrollpos) window.scrollTo(0, scrollpos);
+        });
+
+        window.onbeforeunload = function(e) {
+            localStorage.setItem('scrollpos', window.scrollY);
+        };
+</script>
+<div class="container-fluid ">
+    <div class="cartpage mx-auto">
+        <p>Home / Your shopping cart</p><br>
+
+        {% if cartitems %}
+          
+        <!-- <h3 class="main-subtitle">select the date to pickup your order</h3>
+        <input type="search"class='date' > -->
+        <div class="cartitems">
+            <div class="items1 container-fluid">
+                <table class="cart-table row">
+                    <thead>
+                        <tr class="row">
+                            <th class="col-md-5">Item</th>
+                            <th class="col-md-3">Qty.</th>
+                            <th class="col-md-2">Price</th>
+                            <th class="col-md-2">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in cartitems %}
+                        
+                        <tr class="row">
+                            <td class="col-md-5">
+                                <div class="row">
+                                    <div class="col-3 "><img class="cartimg" src="{{product.image.url}}" alt="img"></div>
+                                    <div class="col-9 text-start">
+                                        <a href="/detail/{{product.id}}/" class="name">{{product.product_name}}</a>
+                                        <div class="remove-item"> 
+                                            <form action="/cart/" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="productid"  value="{{product.id}}">
+                                                <input type="hidden" name="action"  value="-{{product|cart_qty:request.session.cart}}">
+                                                <button class="removebutton" type="submit">Remove</button>
+                                            </form> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="col-md-3 quantity">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="qtycart">{{product|cart_qty:request.session.cart}}</div>
+                                    </div>
+                                    <div class="col-4 px-0">
+                                        <form action="/cart/" method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="productid"  value="{{product.id}}">
+                                                <input type="hidden" name="action"  value="1">
+                                            <button type="submit">+</button>
+                                        </form> 
+                                    </div>
+                                    <div class="col-4 px-0">
+                                        <form action="/cart/" method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="productid"  value="{{product.id}}">
+                                            <input type="hidden" name="action"  value="-1">
+                                            <button type="submit">-</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="col-md-2 price ">₹ {{product.price}}</td>
+                            <td class="col-md-2 total-price">₹ {{product|product_total:request.session.cart}}</td>
+                        </tr>
+                        {% endfor %}
+                        
+                        <tr class="row">
+                            <td class="col-12 text-end"> Total&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="items2 container-fluid">
+                <div class="row">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-4 px-0 ">
+                        <div class="container-fluid text-center subtotal">
+                            <div class="row text-end">
+                                <div class="col-6 ">amount &nbsp;&nbsp; </div>
+                                <div class="col-6 ">₹ {{cartitems|total_price:request.session.cart}}</div>
+                            </div>
+                            <form method="post" action="/checkout/">
+                                {% csrf_token %}
+                                <input type="hidden" name="finalprice" id="totalprice" value="{{cartitems|total_price:request.session.cart}}">
+                                <button class="cartbtn" type="submit">checkout</button>
+                            </form>
+                            <a href="/"><div class="cartbtn">return to home</div></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% else %}
+        <div class="text-center">your cart is empty <br> <br> <br> <br> <br> <br> <br> <br>  </div>
+        {% endif %}
+
+    </div>
+</div>
+
+
+
+
+
+
+{%endblock%}

@@ -1,0 +1,27 @@
+{% extends "base.html"%}
+{% load static %}
+{% block content %}
+{% if searchitems %}
+<br><br>
+<div class="container text-center mx-auto">
+    <div class="row text-center">
+
+        {% for x in searchitems %}
+        <div class="col-lg-4">
+            <figure>
+                <a href="#"><img class="img-fluid products" src="../{{x.image}}" alt="product image"></a>
+            </figure>
+            <div class=" text-center product-description footer3">
+                <h4>{{x.product_name}}</h4>
+                <a href="/detail/{{x.id}}/"><button>shop now</button></a>
+            </div>    
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{%else%}
+ <div class="text-center"> <br><br>   <br> <br> <br> <br>Couldn't find any product related to your search<br><br> <br> <br>  <br> <br> <br> <br></div>
+{% endif %}
+
+
+{%endblock%}

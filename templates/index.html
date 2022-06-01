@@ -1,0 +1,133 @@
+{% extends "base.html"%}
+{% load static %}
+{% block content %}
+
+<figure class="figure text-center " >
+    <img class="img-fluid mx-auto " src="{% static 'images/2312774_1600x0.jpg' %}" alt="banner">
+    <figcaption class="banner-caption mx-auto"> 
+        <div class="row">
+            <div class="column">
+                <div class=" container-fluid banner_description">
+                    <h2 class="bnnr-title">
+                        Together, with our great  Bakery<br>
+                        family, we enjoy bringing you our favourite
+                    </h2>
+                    <h2 class="bnnr-subtitle">
+                        Breads, Pastry,
+                        <span class="text-alignment"> Cakes and  much</span>
+                        <span class="text-alignment">more!</span>
+                    </h2>
+                    <button onclick=" location.href='/bread' ">Shop Now</button>
+                </div>
+                
+            </div>
+        </div>
+    </figcaption>
+</figure>
+<!--              figure ends             -->
+    <section  class="container-fluid midsection mx-auto">
+        <div class="row">
+            <div class="col-md-6 text-lg-end text-center">
+                <h1 class="main-title"> Bakery</h1>
+                <h2 class="main-subtitle">WHOLESALE BAKERY IN `CITY0FXYZ, AB</h2>
+            </div>
+            <div class="col-md-6 text-lg-start text-center">
+                <h2 class="main-subtitle">BREAD / CAKE SHOP IN `CITY0FXYZ, AB</h2>
+                <h3>Bread, Cakes, Pastries, Specialty Cakes, & more!</h3>
+                <p>We have customers visiting our Bakery from across `CITY0FXYZ, Sherwood Park, St. Albert, Leduc, Spruce Grove, and the surrounding areas.</p>
+                <h2><a href="#">VISIT  BAKERY</a> in `CITY0FXYZ, AB</h2>
+            </div>
+        </div>
+
+    </section>
+<!--             section ends               -->
+
+<div class="container text-center mx-auto">
+    <div class="row text-center">
+
+        {% for x in categry %}
+        <div class="col-lg-4 mx-auto">
+            <figure>
+                <a href="#"><img class="img-fluid products" src="{{x.image.url}}" alt="product image"></a>
+            </figure>
+            <div class=" text-center product-description footer3">
+                <h4>{{x.category}}</h4>
+                <a href="/{{x.category}}/"><button>shop now</button></a>
+            </div>    
+        </div>
+        {% endfor %}
+        
+
+
+
+        
+
+    </div>
+</div>
+
+
+
+
+
+<!-- section ends  here  -->
+<figure class="container-fluid px-0 mx-auto mid-banner">
+    <img class="img-fluid" src="{% static 'images/2310961_1600x0.jpg'%}" alt="banner">
+</figure>
+<!-- section ends here -->
+<div class="about-section  ">
+    <div class="container-xl mx-auto">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="main-title text-center">
+                    about  bakery
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="review-about text-start">
+                    <p > Bakery began in `CITY0FXYZ in 1959 located next to Jasper Place Meats along Stony Plain road and about 151 street. We relocated to our previous “off Whyte” space in the early 1990s.</p>
+                    <!-- <p><button>read more</button></p> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- section ends here -->
+<div class="blog-section">
+    <div class="container-xl  mx-auto">
+        <div class="main-title text-center">Latest Blog Posts By  Bakery</div>
+        <div class="row blog-posts">
+            <div class="col-md-6 ">
+                <div class="text-center"><img class="img-fluid" src="{% static 'images/2419335_550x0.jpg'%}" alt="blog image">
+                </div>
+                <h3 class="footer3"><a href="#">COME ENJOY THE FINEST BREAD BY  BAKERY</a></h3>
+                <h4 class="footer1 author">author: <span> bakery</span></h4>
+                <p>Whether it is for breakfast, lunch, or dinner, we all enjoy a good slice of bread. Bread is part of our daily life and there are so many ways to eat it. You can toast it, fry it, or dip it. You can eat it in the form of a sandwich, as a part of a snack, or all on its own. There are several bread-centric meals for everyone to enjoy!z</p>
+            </div>
+            <div class="col-md-6">
+                <div class="text-center"><img class="img-fluid" src="{% static 'images/2373085_550x0.png'%}" alt="blog image">
+                </div>
+                <h3 class="footer3"><a href="#">ANNOUNCING THE NEW WEBSITE</a></h3>
+                <h4 class="footer1 author">author: <span> bakery</span></h4>
+                <p>We are delighted to announce the launch of our new website!</p>
+            </div>
+        </div>
+        <div class="text-center footer3"><a href="#"><button>view all posts</button></div></a>
+    </div>
+</div>
+<!-- section ends here -->
+<figure class=" container-fluid px-0 py-0 mx-auto ">
+    <img class="img-fluid" src="{% static 'images/2311266_1600x0.jpg'%}" alt="bottom-banner">
+
+</figure>
+<!-- section ends here -->
+<div class=" container-sm mx-auto bottom-section text-center">
+    <h2 class="main-title">about us</h2>
+    <h3 class="main-subtitle">WIDE VARIETY OF PASTRIES AND SQUARES</h3>
+    <p>Wide variety of pastries and squares. But be sure to get there early if you want bread or buns on the weekend! Great cakes too! To get to the bakery take the right turn at the lights right before 63rd or you have to make a big loop to get back ;)</p>
+    <p class="text-center author">- bakery</p>
+</div>
+</div>
+<!-- section ends here -->
+
+
+{%endblock%}
